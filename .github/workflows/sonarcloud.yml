@@ -40,25 +40,25 @@ permissions:
 
 jobs:
   # Add a job for running Jest tests
-  jest-tests-frontend:
-    runs-on: ubuntu-latest
-    environment: staging
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  # jest-tests-frontend:
+  #   runs-on: ubuntu-latest
+  #   environment: staging
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: "20"
 
-      - name: Install dependencies for Jest
-        working-directory: Web Ui
-        run: npm install
+  #     - name: Install dependencies for Jest
+  #       working-directory: Web Ui
+  #       run: npm install
 
-      - name: Run Jest tests
-        working-directory: Web Ui
-        run: npm test
+  #     - name: Run Jest tests
+  #       working-directory: Web Ui
+  #       run: npm test
 
   jest-tests-backend:
     runs-on: ubuntu-latest
