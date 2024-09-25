@@ -313,11 +313,12 @@ jobs:
     #       firebase deploy --project ${{ secrets.FIREBASE_PROJECT_ID }}
 
 
+
   deploy_vercel_staging:
       runs-on: ubuntu-latest
       environment: staging
       #needs: prettier
-      #Ejecutar solo si es la rama staging
+      #Ejecutar solo si es la rama stagingg
       if: github.ref == 'refs/heads/staging'
       steps:
         - name: "Echo values"
