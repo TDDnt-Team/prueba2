@@ -319,7 +319,7 @@ jobs:
       environment:
         name: staging
       #Ejecutar solo si es la rama staging
-      if: github.event.ref == 'refs/heads/staging'
+      if: github.event.ref == 'refs/heads/main'
       steps:
         - name: "Echo values"
           run: |
