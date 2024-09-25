@@ -358,7 +358,7 @@ jobs:
         name: production
       needs: [deploy_vercel_staging]
       #Ejecutar solo si es la rama main
-      if: github.ref == 'refs/heads/main'
+      
       steps:
         - name: "Echo values"
           run: |
