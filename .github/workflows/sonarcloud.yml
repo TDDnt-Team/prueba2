@@ -261,6 +261,7 @@ jobs:
 
 
       - name: Deploy to Firebase Production
+        working-directory: Web Ui
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
@@ -306,6 +307,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to Firebase Staging
+        working-directory: Web Ui
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
