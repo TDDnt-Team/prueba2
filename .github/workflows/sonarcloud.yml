@@ -272,7 +272,6 @@ jobs:
     environment: production
     needs: [deploy_firebase_staging]
     #Ejecutar solo si es la rama main
-    #if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout repo
