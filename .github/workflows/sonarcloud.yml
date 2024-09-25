@@ -224,7 +224,8 @@ jobs:
 
   deploy_firebase_staging:
     runs-on: ubuntu-latest
-    environment: staging
+    environment:
+      name: staging
     #needs: prettier
     #Ejecutar solo si es la rama staging
     if: github.ref == 'refs/heads/staging'
@@ -269,9 +270,11 @@ jobs:
 
   deploy_firebase_production:
     runs-on: ubuntu-latest
-    environment: production
+    environment:
+      name: production
     needs: [deploy_firebase_staging]
     #Ejecutar solo si es la rama main
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout repo
@@ -313,7 +316,8 @@ jobs:
 
   deploy_vercel_staging:
       runs-on: ubuntu-latest
-      environment: staging
+      environment:
+        name: staging
       #Ejecutar solo si es la rama staging
       if: github.ref == 'refs/heads/staging'
       steps:
@@ -350,10 +354,11 @@ jobs:
 
   deploy_vercel_production:
       runs-on: ubuntu-latest
-      environment: production
+      environment:
+        name: production
       needs: [deploy_vercel_staging]
       #Ejecutar solo si es la rama main
-      if: github.ref == 'refs/heads/main'
+      #if: github.ref == 'refs/heads/main'
       steps:
         - name: "Echo values"
           run: |
