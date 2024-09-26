@@ -4,7 +4,7 @@ import { dbUserMock } from "../../__mocks__/Auth/userOnDbMock";
 
 // Mocking Axios to avoid actual HTTP requests
 // const API_URL = "https://tdd-lab-api-gold.vercel.app/api";
-const API_URL = "https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api";
+const API_URL = "https://server-gw344uues-dilan-alavis-projects.vercel.app/api";
 
 jest.mock("axios");
 
