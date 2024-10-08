@@ -40,45 +40,45 @@ permissions:
 
 jobs:
   # Add a job for running Jest tests
-  # jest-tests-frontend:
-  #   runs-on: ubuntu-latest
-  #   environment: staging
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+  jest-tests-frontend:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - name: Set up Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: "20"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
-  #     - name: Install dependencies for Jest
-  #       working-directory: Web Ui
-  #       run: npm install
+      - name: Install dependencies for Jest
+        working-directory: Web Ui
+        run: npm install
 
-  #     - name: Run Jest tests
-  #       working-directory: Web Ui
-  #       run: npm test
+      - name: Run Jest tests
+        working-directory: Web Ui
+        run: npm test
 
-  # jest-tests-backend:
-  #   runs-on: ubuntu-latest
-  #   environment: staging
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+  jest-tests-backend:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - name: Set up Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: "20"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
-  #     - name: Install dependencies for Jest
-  #       working-directory: server
-  #       run: npm install
+      - name: Install dependencies for Jest
+        working-directory: server
+        run: npm install
 
-  #     - name: Run Jest tests
-  #       working-directory: server
-  #       run: npm test
+      - name: Run Jest tests
+        working-directory: server
+        run: npm test
 
   # # Add a job for running Cypress tests
   # cypress-tests:
@@ -179,48 +179,6 @@ jobs:
       #       echo "No changes to commit in TypeScript files."
       #       exit 0
       #     fi
-
-  # deployment_vercel_Backend:
-  #   runs-on: ubuntu-latest
-  #   environment: production
-  #   #needs: prettier
-  #   env:
-  #     VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  #     VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  #     VERCEL_TOKEN: ${{secrets.VERCEL_TOKEN }}
-
-  #   steps:
-  #     - name: "Echo values"
-  #       run: |
-  #         echo $VERCEL_PROJECT_ID
-  #         echo $VERCEL_ORG_ID
-  #         echo $VERCEL_TOKEN
-
-  #     - name: Checkout repo
-  #       uses: actions/checkout@v4
-
-  #     - name: Setup Node
-  #       uses: actions/setup-node@v4
-
-  #     - name: Set Environment Variables
-  #       run: |
-  #         echo "PGHOST=${{ secrets.PGHOST }}" > ./server/.env
-  #         echo "PGDATABASE=${{ secrets.PGDATABASE }}" >> ./server/.env
-  #         echo "PGUSER=${{ secrets.PGUSER }}" >> ./server/.env
-  #         echo "PGPASSWORD=${{ secrets.PGPASSWORD }}" >> ./server/.env
-  #         echo "PGPORT=${{ secrets.PGPORT }}" >> ./server/.env
-  #         echo "REACT_APP_AUTH_TOKEN=${{ secrets.REACT_APP_AUTH_TOKEN }}" >> ./server/.env
-
-  #     - name: Install Vercel CLI
-  #       run: |
-  #         cd ./server
-  #         npm install vercel
-
-  #     - name: Deploy to Vercel
-  #       run: |
-  #         cd ./server
-  #         vercel --prod --token ${{ secrets.VERCEL_TOKEN }} -y
-
 
   deploy_firebase_staging:
     runs-on: ubuntu-latest
@@ -358,6 +316,11 @@ jobs:
         name: production
       needs: [deploy_vercel_staging]
       #Ejecutar solo si es la rama main
+
+  #   env:
+  #     VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  #     VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  #     VERCEL_TOKEN: ${{secrets.VERCEL_TOKEN }}
       
       steps:
         - name: "Echo values"
