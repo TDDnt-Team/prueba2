@@ -6,7 +6,8 @@ const axiosGetSpy = jest.spyOn(axios, 'get');
 
 const repository = new UsersRepository();
 const axiosPutSpy = jest.spyOn(axios, 'put');
-const API_URL = 'https://tdd-lab-api-gold.vercel.app/api/user/users';
+// const API_URL = 'https://tdd-lab-api-gold.vercel.app/api/user/users';
+const API_URL = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api/user/users';
 
 describe('UsersRepository', () => {
   afterEach(() => {
