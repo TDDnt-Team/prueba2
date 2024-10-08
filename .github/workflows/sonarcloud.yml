@@ -40,27 +40,27 @@ permissions:
 
 jobs:
   # Add a job for running Jest tests
-  # jest-tests-frontend:
-  #   runs-on: ubuntu-latest
-  #   environment: staging
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+  jest-tests-frontend: #ERROR
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - name: Set up Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: "20"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
-  #     - name: Install dependencies for Jest
-  #       working-directory: Web Ui #
-  #       run: npm install
+      - name: Install dependencies for Jest
+        working-directory: Web Ui #ERROR
+        run: npm install
 
-  #     - name: Run Jest tests
-  #       working-directory: Web Ui #
-  #       run: npm test
+      - name: Run Jest tests
+        working-directory: Web Ui #ERROR
+        run: npm test
 
-  jest-tests-backend:
+  jest-tests-backend: #OK
     runs-on: ubuntu-latest
     environment: staging
     steps:
@@ -81,7 +81,7 @@ jobs:
         run: npm test
 
   # Add a job for running Cypress tests
-  cypress-tests:
+  cypress-tests: #OK
     runs-on: ubuntu-latest
     environment: staging
     steps:
@@ -107,9 +107,9 @@ jobs:
         working-directory: Web Ui
         run: pkill -f "vite" # Use pkill to stop the development server
 
-  sonarcloud:
+  sonarcloud: #ERROR
     name: SonarCloud
-    needs: [cypress-tests, jest-tests-backend] #jest-tests-frontend,
+    needs: [cypress-tests, jest-tests-frontend, jest-tests-backend, deploy_firebase_staging, deploy_vercel_staging]
     runs-on: ubuntu-latest
     environment: staging
     steps:
@@ -146,7 +146,7 @@ jobs:
   prettier:
     runs-on: ubuntu-latest
     environment: staging
-    # needs: sonarcloud
+    needs: sonarcloud
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -184,7 +184,6 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: staging
-    #needs: prettier
     #Ejecutar solo si es la rama staging
     if: github.event.ref == 'refs/heads/staging'
 
@@ -230,7 +229,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-    needs: [deploy_firebase_staging]
+    needs: [prettier]
     #Ejecutar solo si es la rama main
     # if: github.event.ref == 'refs/heads/main'
 
@@ -314,7 +313,7 @@ jobs:
       runs-on: ubuntu-latest
       environment:
         name: production
-      needs: [deploy_vercel_staging]
+      needs: [prettier]
       #Ejecutar solo si es la rama main
 
   #   env:
