@@ -276,17 +276,10 @@ jobs:
 
   deploy_vercel_staging:
       runs-on: ubuntu-latest
-<<<<<<< HEAD
-      environment: staging
-      #needs: prettier
-      #Ejecutar solo si es la rama staging
-      if: github.ref == 'refs/heads/staging'
-=======
       environment:
         name: staging
       #Ejecutar solo si es la rama staging 
       if: github.event.ref == 'refs/heads/staging'
->>>>>>> 0211dc72e92b7a17c8ae8ad12298e5413acf560d
       steps:
         - name: "Echo values"
           run: |
