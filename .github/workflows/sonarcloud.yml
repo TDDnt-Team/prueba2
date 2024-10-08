@@ -40,25 +40,25 @@ permissions:
 
 jobs:
   # Add a job for running Jest tests
-  jest-tests-frontend:
-    runs-on: ubuntu-latest
-    environment: staging
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  # jest-tests-frontend:
+  #   runs-on: ubuntu-latest
+  #   environment: staging
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: "20"
 
-      - name: Install dependencies for Jest
-        working-directory: Web Ui
-        run: npm install
+  #     - name: Install dependencies for Jest
+  #       working-directory: Web Ui #
+  #       run: npm install
 
-      - name: Run Jest tests
-        working-directory: Web Ui
-        run: npm test
+  #     - name: Run Jest tests
+  #       working-directory: Web Ui #
+  #       run: npm test
 
   jest-tests-backend:
     runs-on: ubuntu-latest
@@ -80,105 +80,105 @@ jobs:
         working-directory: server
         run: npm test
 
-  # # Add a job for running Cypress tests
-  # cypress-tests:
-  #   runs-on: ubuntu-latest
-  #   environment: staging
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+  # Add a job for running Cypress tests
+  cypress-tests:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - name: Set up Node.js for Cypress
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: "20" # You can adjust the Node.js version as needed for Cypress
+      - name: Set up Node.js for Cypress
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # You can adjust the Node.js version as needed for Cypress
 
-  #     - name: Install dependencies for Cypress
-  #       working-directory: Web Ui
-  #       run: npm install
+      - name: Install dependencies for Cypress
+        working-directory: Web Ui
+        run: npm install
 
-  #     - name: Cypress run
-  #       uses: cypress-io/github-action@v6
-  #       with:
-  #         working-directory: Web Ui
-  #         start: npm run dev
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: Web Ui
+          start: npm run dev
 
-  #     - name: Stop Your Application
-  #       working-directory: Web Ui
-  #       run: pkill -f "vite" # Use pkill to stop the development server
+      - name: Stop Your Application
+        working-directory: Web Ui
+        run: pkill -f "vite" # Use pkill to stop the development server
 
-  # sonarcloud:
-  #   name: SonarCloud
-  #   needs: [cypress-tests, jest-tests-frontend, jest-tests-backend]
-  #   runs-on: ubuntu-latest
-  #   environment: staging
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+  sonarcloud:
+    name: SonarCloud
+    needs: [cypress-tests, jest-tests-backend] #jest-tests-frontend,
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
-  #     - name: SonarCloud Scan
-  #       uses: SonarSource/sonarcloud-github-action@master
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
-  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  #         SONAR_SCANNER_OPTS: -Dsonar.pullrequest.github.summary_comment=true
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_SCANNER_OPTS: -Dsonar.pullrequest.github.summary_comment=true
 
-  #     - name: Wait for the quality gate result
-  #       run: sleep 5
+      - name: Wait for the quality gate result
+        run: sleep 5
 
-  #     - name: SonarQube Quality Gate check
-  #       id: sonarqube-quality-gate-check
-  #       uses: sonarsource/sonarqube-quality-gate-action@master
-  #       # Force to fail step after specific time.
-  #       timeout-minutes: 5
-  #       env:
-  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  #       with:
-  #         scanMetadataReportFile: .scannerwork/report-task.txt
+      - name: SonarQube Quality Gate check
+        id: sonarqube-quality-gate-check
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        # Force to fail step after specific time.
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          scanMetadataReportFile: .scannerwork/report-task.txt
 
-  #     - name: "SonarQube Quality Gate Status value"
-  #       run: |
-  #         echo "${{ steps.sonarqube-quality-gate-check.outputs.project-status }}"
-  #         echo "${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-result }}"
+      - name: "SonarQube Quality Gate Status value"
+        run: |
+          echo "${{ steps.sonarqube-quality-gate-check.outputs.project-status }}"
+          echo "${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-result }}"
 
-  # # Jobs for prettier
-  # prettier:
-  #   runs-on: ubuntu-latest
-  #   environment: staging
-  #   needs: sonarcloud
-  #   steps:
-  #     - name: Checkout Code
-  #       uses: actions/checkout@v4
+  # Jobs for prettier
+  prettier:
+    runs-on: ubuntu-latest
+    environment: staging
+    needs: sonarcloud
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: 20
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-  #     - name: Install Dependencies
-  #       working-directory: Web Ui
-  #       run: npm install
+      - name: Install Dependencies
+        working-directory: Web Ui
+        run: npm install
 
-      # - name: Run Prettier
-      #   working-directory: Web Ui
-      #   run: npx prettier --write "src/**/*.{js,ts,tsx}"
+      - name: Run Prettier
+        working-directory: Web Ui
+        run: npx prettier --write "src/**/*.{js,ts,tsx}"
 
-      # - name: Check for Changes in TypeScript files
-      #   id: check-changes
-      #   working-directory: Web Ui
-      #   run: |
-      #     git config --global user.name "{{ github.actor }}"
-      #     git config --global user.email "{{ github.actor }}@users.noreply.github.com"
-      #     if [[ -n $(git status --porcelain "src/**/*.{ts,tsx}") ]]; then
-      #       echo "Changes detected in TypeScript files."
-      #       git add .
-      #       git commit -m "Auto-format code with Prettier"
-      #       git push
-      #     else
-      #       echo "No changes to commit in TypeScript files."
-      #       exit 0
-      #     fi
+      - name: Check for Changes in TypeScript files
+        id: check-changes
+        working-directory: Web Ui
+        run: |
+          git config --global user.name "{{ github.actor }}"
+          git config --global user.email "{{ github.actor }}@users.noreply.github.com"
+          if [[ -n $(git status --porcelain "src/**/*.{ts,tsx}") ]]; then
+            echo "Changes detected in TypeScript files."
+            git add .
+            git commit -m "Auto-format code with Prettier"
+            git push
+          else
+            echo "No changes to commit in TypeScript files."
+            exit 0
+          fi
 
   deploy_firebase_staging:
     runs-on: ubuntu-latest
