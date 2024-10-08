@@ -279,7 +279,7 @@ jobs:
 <<<<<<< HEAD
       environment: staging
       #needs: prettier
-      #Ejecutar solo si es la rama stagingg
+      #Ejecutar solo si es la rama staging
       if: github.ref == 'refs/heads/staging'
 =======
       environment:
