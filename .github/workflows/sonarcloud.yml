@@ -146,7 +146,7 @@ jobs:
   prettier:
     runs-on: ubuntu-latest
     environment: staging
-    needs: sonarcloud
+    # needs: sonarcloud
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
