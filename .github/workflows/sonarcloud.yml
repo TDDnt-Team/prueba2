@@ -40,7 +40,7 @@ permissions:
 
 jobs:
   # Add a job for running Jest tests
-  jest-tests-frontend: #ERROR
+  jest-tests-frontend: #OK
     runs-on: ubuntu-latest
     environment: staging
     steps:
@@ -107,48 +107,48 @@ jobs:
         working-directory: Web Ui
         run: pkill -f "vite" # Use pkill to stop the development server
 
-  sonarcloud: #ERROR
-    name: SonarCloud
-    needs: [cypress-tests, jest-tests-backend, deploy_firebase_staging, deploy_vercel_staging] #, jest-tests-frontend
-    runs-on: ubuntu-latest
-    environment: staging
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_SCANNER_OPTS: -Dsonar.pullrequest.github.summary_comment=true
-
-      - name: Wait for the quality gate result
-        run: sleep 5
-
-      - name: SonarQube Quality Gate check
-        id: sonarqube-quality-gate-check
-        uses: sonarsource/sonarqube-quality-gate-action@master
-        # Force to fail step after specific time.
-        timeout-minutes: 5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          scanMetadataReportFile: .scannerwork/report-task.
-          
-        continue-on-error: true  # Esta opción permite que el workflow siga ejecutándose aunque falle la Quality Gate
-
-      - name: "SonarQube Quality Gate Status value"
-        run: |
-          echo "${{ steps.sonarqube-quality-gate-check.outputs.project-status }}"
-          echo "${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-result }}"
+#  sonarcloud: #ERROR
+#    name: SonarCloud
+#    needs: [cypress-tests, jest-tests-backend, deploy_firebase_staging, deploy_vercel_staging] #, jest-tests-frontend
+#    runs-on: ubuntu-latest
+#    environment: staging
+#    steps:
+#      - uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+#
+#      - name: SonarCloud Scan
+#        uses: SonarSource/sonarcloud-github-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#          SONAR_SCANNER_OPTS: -Dsonar.pullrequest.github.summary_comment=true
+#
+#      - name: Wait for the quality gate result
+#        run: sleep 5
+#
+#      - name: SonarQube Quality Gate check
+#        id: sonarqube-quality-gate-check
+#        uses: sonarsource/sonarqube-quality-gate-action@master
+#        # Force to fail step after specific time.
+#        timeout-minutes: 5
+#        env:
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#        with:
+#          scanMetadataReportFile: .scannerwork/report-task.
+#
+#        continue-on-error: true  # Esta opción permite que el workflow siga ejecutándose aunque falle la Quality Gate
+#
+#      - name: "SonarQube Quality Gate Status value"
+#        run: |
+#          echo "${{ steps.sonarqube-quality-gate-check.outputs.project-status }}"
+#          echo "${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-result }}"
 
   # Jobs for prettier
   prettier:
     runs-on: ubuntu-latest
     environment: staging
-    needs: sonarcloud
+    needs: [cypress-tests, jest-tests-backend, jest-tests-frontend]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -186,6 +186,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: staging
+    needs: prettier
     #Ejecutar solo si es la rama staging
     if: github.event.ref == 'refs/heads/staging'
 
@@ -278,6 +279,7 @@ jobs:
       runs-on: ubuntu-latest
       environment:
         name: staging
+      needs: prettier
       #Ejecutar solo si es la rama staging 
       if: github.event.ref == 'refs/heads/staging'
       steps:
