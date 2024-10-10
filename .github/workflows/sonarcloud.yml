@@ -285,7 +285,7 @@ jobs:
       steps:
         - name: "Echo values"
           run: |
-            echo ${{ VERCEL_PROJECT_ID }}
+            echo $VERCEL_PROJECT_ID
             echo ${{ VERCEL_ORG_ID }}
             echo ${{ VERCEL_TOKEN }}
             echo ${{ secrets.GITHUB_TOKEN }}
@@ -331,7 +331,7 @@ jobs:
       steps:
         - name: "Echo values"
           run: |
-            echo ${{ VERCEL_PROJECT_ID }}
+            echo $VERCEL_PROJECT_ID
             echo ${{ VERCEL_ORG_ID }}
             echo ${{ VERCEL_TOKEN }}
             echo ${{ secrets.GITHUB_TOKEN }}
