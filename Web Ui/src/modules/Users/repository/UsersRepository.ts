@@ -1,9 +1,12 @@
 import axios from "axios";
 import { UserDataObject } from "../domain/UsersInterface";
 import UsersRepositoryInterface from "../domain/UsersRepositoryInterface";
+import dotenv from 'dotenv';
+dotenv.config();
 
 // const API_URL = "https://tdd-lab-api-gold.vercel.app/api/user/users"; //http://localhost:3000/api/ -> https://tdd-lab-api-gold.vercel.app/api/
-const API_URL = "https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api/user/users"; //http://localhost:3000/api/ -> https://tdd-lab-api-gold.vercel.app/api/
+// const API_URL = "https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api/user/users"; //http://localhost:3000/api/ -> https://tdd-lab-api-gold.vercel.app/api/
+const API_URL = process.env.API_URL + '/user/users';
 
 class UsersRepository implements UsersRepositoryInterface {
 
