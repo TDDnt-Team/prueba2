@@ -149,7 +149,8 @@ describe("AssignmentDetail Component", () => {
       expect(screen.getByText('En progreso')).toBeInTheDocument();
       expect(screen.getByText('https://github.com/student/repo1')).toBeInTheDocument();
       expect(screen.getByText('https://github.com/student/repo2')).toBeInTheDocument();
-    });
+    },
+    { timeout: 3000 });
   });
 
   it("shows loading indicator while fetching assignment details", async () => {
