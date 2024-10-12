@@ -286,8 +286,8 @@ jobs:
         - name: "Echo values"
           run: |
             echo $VERCEL_PROJECT_ID
-            echo $VERCEL_ORG_ID
-            echo $VERCEL_TOKEN
+            echo $VERCEL_ORG_ID 
+            echo $VERCEL_TOKEN 
 
         - name: Checkout repo
           uses: actions/checkout@v4
@@ -331,8 +331,9 @@ jobs:
         - name: "Echo values"
           run: |
             echo $VERCEL_PROJECT_ID
-            echo $VERCEL_ORG_ID
-            echo $VERCEL_TOKEN
+            echo $VERCEL_ORG_ID 
+            echo $VERCEL_TOKEN 
+            
 
         - name: Checkout repo
           uses: actions/checkout@v4
