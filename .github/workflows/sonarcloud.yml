@@ -109,7 +109,7 @@ jobs:
 
   sonarcloud: #ERROR
    name: SonarCloud
-   needs: [cypress-tests, jest-tests-backend, deploy_firebase_staging, deploy_vercel_staging, jest-tests-frontend]
+   needs: [cypress-tests, jest-tests-backend, jest-tests-frontend]
    runs-on: ubuntu-latest
    environment: staging
    steps:
@@ -148,7 +148,7 @@ jobs:
   prettier:
     runs-on: ubuntu-latest
     environment: staging
-    needs: [cypress-tests, jest-tests-backend, jest-tests-frontend]
+    needs: [sonarcloud]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
