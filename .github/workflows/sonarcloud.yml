@@ -187,7 +187,7 @@ jobs:
     environment:
       name: staging
     needs: prettier
-    #Ejecutar solo si es la rama staging
+    #Ejecutar solo si es la rama staging #
     if: github.event.ref == 'refs/heads/staging'
 
     steps:
