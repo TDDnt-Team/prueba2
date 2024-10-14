@@ -1,12 +1,10 @@
 import axios from "axios"; // Import Axios or your preferred HTTP library
 import { AssignmentDataObject } from "../domain/assignmentInterfaces"; // Import your assignment model
 import AssignmentsRepositoryInterface from "../domain/AssignmentsRepositoryInterface";
-import dotenv from 'dotenv';
-dotenv.config();
 
 // const API_URL = "https://tdd-lab-api-gold.vercel.app/api/assignments"; //http://localhost:3000/api/ -> https://tdd-lab-api-gold.vercel.app/api/
 // const API_URL = "https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api/assignments"; //http://localhost:3000/api/ -> https://tdd-lab-api-gold.vercel.app/api/
-const API_URL = process.env.API_URL + '/assignments';
+const API_URL = import.meta.env.VITE_API_URL + '/assignments';
 
 class AssignmentsRepository implements AssignmentsRepositoryInterface {
   async getAssignments(): Promise<AssignmentDataObject[]> {
