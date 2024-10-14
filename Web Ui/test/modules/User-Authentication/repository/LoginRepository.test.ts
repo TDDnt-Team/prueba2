@@ -1,10 +1,9 @@
 import axios from "axios";
 import AuthRepository from "../../../../src/modules/User-Authentication/repository/LoginRepository";
 import { dbUserMock } from "../../__mocks__/Auth/userOnDbMock";
-import dotenv from 'dotenv';
-dotenv.config();
 
-const API_URL = process.env.API_URL;
+
+const API_URL = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api';
 
 // Mocking Axios to avoid actual HTTP requests
 jest.mock("axios");

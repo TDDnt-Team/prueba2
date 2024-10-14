@@ -1,15 +1,13 @@
 import axios from 'axios';
 import UsersRepository from '../../../../src/modules/Users/repository/UsersRepository';
 import { UserDataObject } from '../../../../src/modules/Users/domain/UsersInterface';
-import dotenv from 'dotenv';
-dotenv.config();
 
 const axiosGetSpy = jest.spyOn(axios, 'get');
 
 const repository = new UsersRepository();
 const axiosPutSpy = jest.spyOn(axios, 'put');
 
-const API_URL = process.env.API_URL + '/user/users';
+const API_URL = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api' + '/user/users';
 
 describe('UsersRepository', () => {  
   afterEach(() => {
