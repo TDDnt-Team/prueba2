@@ -9,8 +9,7 @@ const axiosPostSpy = jest.spyOn(axios, 'post');
 const axiosDeleteSpy = jest.spyOn(axios, 'delete');
 
 const repository = new GroupsRepository();
-// const API_URL = 'https://tdd-lab-api-gold.vercel.app/api/groups';
-// const API_URL = "https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api/groups"
+
 const API_URL = process.env.API_URL + '/groups';
 
 describe('GroupsRepository', () => {

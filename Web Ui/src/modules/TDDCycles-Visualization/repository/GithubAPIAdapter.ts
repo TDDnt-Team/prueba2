@@ -10,8 +10,8 @@ export class GithubAPIAdapter implements GithubAPIRepository {
   constructor() {
     this.octokit = new Octokit();
     //auth: 'coloca tu token github para mas requests'
-    // this.backAPI = "https://tdd-lab-api-gold.vercel.app/api/TDDCycles"; //https://localhost:3000/api/ -> https://tdd-lab-api-gold.vercel.app/api/
-    this.backAPI = import.meta.env.VITE_API_URL + "/TDDCycles"; //https://localhost:3000/api/ -> https://tdd-lab-api-gold.vercel.app/api/
+    // this.backAPI = import.meta.env.VITE_API_URL + "/TDDCycles";
+    this.backAPI = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api' + '/TDDCycles'; // Staging API URL
   }
 
   async obtainCommitsOfRepo(

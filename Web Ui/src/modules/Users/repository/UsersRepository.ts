@@ -2,10 +2,8 @@ import axios from "axios";
 import { UserDataObject } from "../domain/UsersInterface";
 import UsersRepositoryInterface from "../domain/UsersRepositoryInterface";
 
-// const API_URL = "https://tdd-lab-api-gold.vercel.app/api/user/users"; //http://localhost:3000/api/ -> https://tdd-lab-api-gold.vercel.app/api/
-// const API_URL = "https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api/user/users"; //http://localhost:3000/api/ -> https://tdd-lab-api-gold.vercel.app/api/
-const API_URL = import.meta.env.VITE_API_URL + '/user/users';
-
+// const API_URL = import.meta.env.VITE_API_URL + '/user/users';
+const API_URL = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api' +  '/user/users'; // Staging API URL
 
 class UsersRepository implements UsersRepositoryInterface {
 

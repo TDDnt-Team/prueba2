@@ -4,8 +4,6 @@ import { dbUserMock } from "../../__mocks__/Auth/userOnDbMock";
 import dotenv from 'dotenv';
 dotenv.config();
 
-// const API_URL = "https://tdd-lab-api-gold.vercel.app/api";
-// const API_URL = "https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api";
 const API_URL = process.env.API_URL;
 
 // Mocking Axios to avoid actual HTTP requests
