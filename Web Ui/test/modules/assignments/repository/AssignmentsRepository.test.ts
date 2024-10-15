@@ -9,13 +9,9 @@ const axiosPostSpy = jest.spyOn(axios, 'post');
 const axiosPutSpy = jest.spyOn(axios, 'put');
 const axiosDeleteSpy = jest.spyOn(axios, 'delete');
 
-jest.mock('../../../../config.ts', () => ({
-    API: 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api', // Valor mockeado
-}));
-
 const mockRepository = new AssignmentsRepository();
 
-const API_URL = process.env.API_URL + '/assignments';
+const API_URL = process.env.VITE_API_URL + '/assignments';
 
 describe('Get assignments', () => {
     it('should fetch assignments successfully', async () => {

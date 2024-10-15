@@ -1,10 +1,9 @@
 import axios from "axios";
 import { UserDataObject } from "../domain/UsersInterface";
 import UsersRepositoryInterface from "../domain/UsersRepositoryInterface";
-import {API} from "../../../../config.ts";
+import {VITE_API} from "../../../../config.ts";
 
-const API_URL = API + '/user/users';
-// const API_URL = API +  '/user/users'; // Staging API URL
+const API_URL = VITE_API + '/user/users';
 
 class UsersRepository implements UsersRepositoryInterface {
 

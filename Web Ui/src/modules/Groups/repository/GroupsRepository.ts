@@ -1,9 +1,9 @@
 import axios from "axios";
 import { GroupDataObject } from "../domain/GroupInterface";
 import GroupsRepositoryInterface from "../domain/GroupsRepositoryInterface";
-import {API} from "../../../../config.ts";
+import {VITE_API} from "../../../../config.ts";
 
-const API_URL = API + '/groups'; // Staging API URL
+const API_URL = VITE_API + '/groups';
 
 class GroupsRepository implements GroupsRepositoryInterface {
   async getGroups(): Promise<GroupDataObject[]> {

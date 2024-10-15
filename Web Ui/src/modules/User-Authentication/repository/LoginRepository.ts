@@ -1,10 +1,9 @@
 import axios from "axios"; // Import Axios or your preferred HTTP library
 import AuthDBRepositoryInterface from "../domain/LoginRepositoryInterface";
 import { UserOnDb } from "../domain/userOnDb.interface";
-import {API} from "../../../../config.ts";
+import {VITE_API} from "../../../../config.ts";
 
-// const API_URL = import.meta.env.VITE_API_URL;
-const API_URL = API; // Staging API URL
+const API_URL = VITE_API;
 
 class AuthRepository implements AuthDBRepositoryInterface {
   async getAccountInfo(email: string): Promise<UserOnDb> {

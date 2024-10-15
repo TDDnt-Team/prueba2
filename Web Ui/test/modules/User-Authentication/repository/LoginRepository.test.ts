@@ -4,11 +4,7 @@ import { dbUserMock } from "../../__mocks__/Auth/userOnDbMock";
 import dotenv from 'dotenv';
 dotenv.config()
 
-jest.mock('../../../../config.ts', () => ({
-  API: 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api', // Valor mockeado
-}));
-
-const API_URL = process.env.API_URL;
+const API_URL = process.env.VITE_API_URL;
 
 // Mocking Axios to avoid actual HTTP requests
 jest.mock("axios");

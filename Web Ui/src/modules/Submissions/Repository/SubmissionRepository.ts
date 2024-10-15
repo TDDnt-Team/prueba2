@@ -1,10 +1,9 @@
 import axios from "axios";
 import { SubmissionCreationObject, SubmissionDataObject, SubmissionUpdateObject } from "../Domain/submissionInterfaces";
 import SubmissionRepositoryInterface from "../Domain/SubmissionRepositoryInterface";
-import {API} from "../../../../config.ts";
+import {VITE_API} from "../../../../config.ts";
 
-// const API_URL = import.meta.env.VITE_API_URL + "/submissions";
-const API_URL = API + + '/submissions'; // Staging API URL
+const API_URL = VITE_API + + '/submissions';
 
 class SubmissionRepository implements SubmissionRepositoryInterface {
 

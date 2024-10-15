@@ -9,7 +9,7 @@ import { GroupDataObject } from "../../../src/modules/Groups/domain/GroupInterfa
 jest.mock("../../../src/modules/Users/application/getUsers");
 jest.mock("../../../src/modules/Groups/application/GetGroups");
 jest.mock('../../../config.ts', () => ({
-  API: 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api', // Valor mockeado
+  VITE_API: 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api', // Valor mockeado
 }));
 
 const mockUsers: UserDataObject[] = [
