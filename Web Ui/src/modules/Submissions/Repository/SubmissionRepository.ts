@@ -1,9 +1,10 @@
 import axios from "axios";
 import { SubmissionCreationObject, SubmissionDataObject, SubmissionUpdateObject } from "../Domain/submissionInterfaces";
 import SubmissionRepositoryInterface from "../Domain/SubmissionRepositoryInterface";
+import {API} from "../../../../config.ts";
 
 // const API_URL = import.meta.env.VITE_API_URL + "/submissions";
-const API_URL = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api' + '/submissions'; // Staging API URL
+const API_URL = API + + '/submissions'; // Staging API URL
 
 class SubmissionRepository implements SubmissionRepositoryInterface {
 

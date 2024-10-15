@@ -1,9 +1,10 @@
 import axios from "axios"; // Import Axios or your preferred HTTP library
 import { AssignmentDataObject } from "../domain/assignmentInterfaces"; // Import your assignment model
 import AssignmentsRepositoryInterface from "../domain/AssignmentsRepositoryInterface";
+import {API} from "../../../../config.ts";
 
 // const API_URL = import.meta.env.VITE_API_URL + '/assignments';
-const API_URL = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api' + '/assignments'; // Staging API URL
+const API_URL = API + '/assignments'; // Staging API URL
 
 class AssignmentsRepository implements AssignmentsRepositoryInterface {
   async getAssignments(): Promise<AssignmentDataObject[]> {

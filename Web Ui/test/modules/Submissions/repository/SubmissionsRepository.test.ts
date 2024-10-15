@@ -5,6 +5,11 @@ import { SubmissionUpdateObject } from "../../../../src/modules/Submissions/Doma
 
 const axiosPostSpy = jest.spyOn(axios, 'post');
 const axiosGetSpy = jest.spyOn(axios, 'get');
+
+jest.mock('../../../../config.ts', () => ({
+    API: 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api', // Valor mockeado
+}));
+
 const mockRepository = new SubmissionRepository();
 
 describe('Create submission', () => {

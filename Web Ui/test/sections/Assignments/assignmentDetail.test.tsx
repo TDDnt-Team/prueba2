@@ -4,6 +4,10 @@ import "@testing-library/jest-dom";
 import AssignmentDetail from "../../../src/sections/Assignments/AssignmentDetail";
 import { GitLinkDialog } from "../../../src/sections/Assignments/components/GitHubLinkDialog"
 
+jest.mock('../../../config.ts', () => ({
+  API: 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api', // Valor mockeado
+}));
+
 jest.mock('../../../src/modules/Assignments/application/GetAssignmentDetail', () => ({
   GetAssignmentDetail: jest.fn().mockImplementation(() => ({
     obtainAssignmentDetail: jest.fn().mockResolvedValue({

@@ -1,15 +1,21 @@
 import axios from 'axios';
 import UsersRepository from '../../../../src/modules/Users/repository/UsersRepository';
 import { UserDataObject } from '../../../../src/modules/Users/domain/UsersInterface';
+import dotenv from 'dotenv';
+dotenv.config()
 
 const axiosGetSpy = jest.spyOn(axios, 'get');
-
-const repository = new UsersRepository();
 const axiosPutSpy = jest.spyOn(axios, 'put');
 
-const API_URL = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api' + '/user/users';
+jest.mock('../../../../config.ts', () => ({
+  API: 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api', // Valor mockeado
+}));
 
-describe('UsersRepository', () => {  
+const API_URL = process.env.VITE_API_URL + '/user/users';
+
+const repository = new UsersRepository();
+
+describe('UsersRepository', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -41,8 +47,8 @@ describe('UsersRepository', () => {
       expect(result).toEqual(mockUsers);
       expect(axiosGetSpy).toHaveBeenCalledWith(API_URL);
     });
-    
-  
+
+
     it('should handle fetch error', async () => {
       axiosGetSpy.mockRejectedValue(new Error('Network Error'));
       await expect(repository.getUsers()).rejects.toThrowError('Network Error');
@@ -61,9 +67,9 @@ describe('UsersRepository', () => {
       expect(axiosGetSpy).toHaveBeenCalledWith(`${API_URL}/groupid/70`);
     });
     it('should handle fetch error', async () => {
-        axiosGetSpy.mockRejectedValue(new Error('Network Error'));
-        await expect(repository.getUsersByGroupid(70)).rejects.toThrowError('Network Error');
-      });
+      axiosGetSpy.mockRejectedValue(new Error('Network Error'));
+      await expect(repository.getUsersByGroupid(70)).rejects.toThrowError('Network Error');
+    });
   });
   describe('getUserByEmail', () => {
     it('should fetch user by email successfully', async () => {
@@ -75,9 +81,9 @@ describe('UsersRepository', () => {
       expect(axiosGetSpy).toHaveBeenCalledWith(`${API_URL}/john@example.com`);
     });
     it('should handle fetch error', async () => {
-        axiosGetSpy.mockRejectedValue(new Error('Network Error'));
-        await expect(repository.getUserByEmail('john@example.com')).rejects.toThrowError('Network Error');
-      });
+      axiosGetSpy.mockRejectedValue(new Error('Network Error'));
+      await expect(repository.getUserByEmail('john@example.com')).rejects.toThrowError('Network Error');
+    });
   });
   describe('updateUser', () => {
     it('should update user group ID successfully', async () => {
@@ -86,10 +92,10 @@ describe('UsersRepository', () => {
       await expect(repository.updateUser(1, 70)).resolves.not.toThrowError();
       expect(axiosPutSpy).toHaveBeenCalledWith(`${API_URL}/1`, { groupid: 70 });
     });
-  
+
     it('should handle update error', async () => {
-        axiosPutSpy.mockRejectedValue(new Error('Network Error'));
-        await expect(repository.updateUser(1, 70)).rejects.toThrowError('Network Error');
+      axiosPutSpy.mockRejectedValue(new Error('Network Error'));
+      await expect(repository.updateUser(1, 70)).rejects.toThrowError('Network Error');
     });
   });
   describe('getUserEmailById', () => {
@@ -102,8 +108,8 @@ describe('UsersRepository', () => {
       expect(axiosGetSpy).toHaveBeenCalledWith(`${API_URL}/1`);
     });
     it('should handle fetch error', async () => {
-        axiosGetSpy.mockRejectedValue(new Error('Network Error'));
-        await expect(repository.getUserEmailById(1)).rejects.toThrowError('Network Error');
-      });
+      axiosGetSpy.mockRejectedValue(new Error('Network Error'));
+      await expect(repository.getUserEmailById(1)).rejects.toThrowError('Network Error');
+    });
   });
 });

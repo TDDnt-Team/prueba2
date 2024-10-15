@@ -1,9 +1,9 @@
 import axios from "axios";
 import { GroupDataObject } from "../domain/GroupInterface";
 import GroupsRepositoryInterface from "../domain/GroupsRepositoryInterface";
+import {API} from "../../../../config.ts";
 
-// const API_URL = import.meta.env.VITE_API_URL + '/groups';
-const API_URL = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api' + '/groups'; // Staging API URL
+const API_URL = API + '/groups'; // Staging API URL
 
 class GroupsRepository implements GroupsRepositoryInterface {
   async getGroups(): Promise<GroupDataObject[]> {

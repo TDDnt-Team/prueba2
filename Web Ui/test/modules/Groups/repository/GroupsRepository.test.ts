@@ -6,9 +6,13 @@ const axiosGetSpy = jest.spyOn(axios, 'get');
 const axiosPostSpy = jest.spyOn(axios, 'post');
 const axiosDeleteSpy = jest.spyOn(axios, 'delete');
 
-const repository = new GroupsRepository();
+jest.mock('../../../../config.ts', () => ({
+  API: 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api', // Valor mockeado
+}));
 
 const API_URL = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api' + '/groups';
+
+const repository = new GroupsRepository();
 
 describe('GroupsRepository', () => {
   afterEach(() => {

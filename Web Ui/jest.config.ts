@@ -4,10 +4,10 @@ export default {
   testPathIgnorePatterns: ["<rootDir>/test/cypress/"],
   transform: {
     "^.+\\.tsx?$": "ts-jest",
-    // process `*.tsx` files with `ts-jest`
+    // "^.+\\.tsx?$": "babel-jest", // Usar babel-jest para la transformación
   },
   moduleNameMapper: {
-    "\\.(gif|ttf|eot|svg|png)$": "<rootDir>/test/__ mocks __/fileMock.js",
+    "\\.(gif|ttf|eot|svg|png)$": "<rootDir>/test/__mocks__/fileMock.js",
     "^.+\\.(css|less)$": "<rootDir>/CSSStub.js",
   },
   silent: true,

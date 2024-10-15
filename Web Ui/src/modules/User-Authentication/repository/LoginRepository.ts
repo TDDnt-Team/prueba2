@@ -1,9 +1,10 @@
 import axios from "axios"; // Import Axios or your preferred HTTP library
 import AuthDBRepositoryInterface from "../domain/LoginRepositoryInterface";
 import { UserOnDb } from "../domain/userOnDb.interface";
+import {API} from "../../../../config.ts";
 
 // const API_URL = import.meta.env.VITE_API_URL;
-const API_URL = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api'; // Staging API URL
+const API_URL = API; // Staging API URL
 
 class AuthRepository implements AuthDBRepositoryInterface {
   async getAccountInfo(email: string): Promise<UserOnDb> {

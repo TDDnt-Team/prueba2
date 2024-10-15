@@ -3,6 +3,7 @@ import { CommitDataObject } from "../domain/githubCommitInterfaces";
 import { JobDataObject } from "../domain/jobInterfaces";
 import { GithubAPIRepository } from "../domain/GithubAPIRepositoryInterface";
 import axios from "axios";
+import {API} from "../../../../config.ts";
 
 export class GithubAPIAdapter implements GithubAPIRepository {
   octokit: Octokit;
@@ -11,7 +12,7 @@ export class GithubAPIAdapter implements GithubAPIRepository {
     this.octokit = new Octokit();
     //auth: 'coloca tu token github para mas requests'
     // this.backAPI = import.meta.env.VITE_API_URL + "/TDDCycles";
-    this.backAPI = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api' + '/TDDCycles'; // Staging API URL
+    this.backAPI = API + '/TDDCycles'; // Staging API URL
   }
 
   async obtainCommitsOfRepo(

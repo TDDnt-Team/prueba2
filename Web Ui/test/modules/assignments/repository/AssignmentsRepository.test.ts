@@ -1,15 +1,21 @@
 import AssignmentsRepository from "../../../../src/modules/Assignments/repository/AssignmentsRepository";
 import axios from "axios";
 import { assignmentInProgresDataMock } from "../../__mocks__/assignments/data/assigmentDataMock";
+import dotenv from 'dotenv';
+dotenv.config()
 
 const axiosGetSpy = jest.spyOn(axios, 'get');
 const axiosPostSpy = jest.spyOn(axios, 'post');
 const axiosPutSpy = jest.spyOn(axios, 'put');
 const axiosDeleteSpy = jest.spyOn(axios, 'delete');
 
+jest.mock('../../../../config.ts', () => ({
+    API: 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api', // Valor mockeado
+}));
+
 const mockRepository = new AssignmentsRepository();
 
-const API_URL = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api' + '/assignments';
+const API_URL = process.env.VITE_API_URL + '/assignments';
 
 describe('Get assignments', () => {
     it('should fetch assignments successfully', async () => {

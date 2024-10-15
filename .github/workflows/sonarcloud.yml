@@ -303,6 +303,7 @@ jobs:
             echo "PGPORT=${{ secrets.PGPORT }}" >> ./server/.env
             echo "REACT_APP_AUTH_TOKEN=${{ secrets.REACT_APP_AUTH_TOKEN }}" >> ./server/.env
             echo "API_URL=${{ secrets.API_URL }}" >> ./Web Ui/.env
+            echo "VITE_API_URL=${{ secrets.API_URL }}" >> ./Web Ui/.env
 
         - name: Install Vercel CLI
           run: |
@@ -349,6 +350,7 @@ jobs:
             echo "PGPORT=${{ secrets.PGPORT }}" >> ./server/.env
             echo "REACT_APP_AUTH_TOKEN=${{ secrets.REACT_APP_AUTH_TOKEN }}" >> ./server/.env
             echo "API_URL=${{ secrets.API_URL }}" >> ./Web Ui/.env
+            echo "VITE_API_URL=${{ secrets.API_URL }}" >> ./Web Ui/.env
 
         - name: Install Vercel CLI
           run: |

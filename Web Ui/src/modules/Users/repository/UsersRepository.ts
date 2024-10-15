@@ -1,9 +1,10 @@
 import axios from "axios";
 import { UserDataObject } from "../domain/UsersInterface";
 import UsersRepositoryInterface from "../domain/UsersRepositoryInterface";
+import {API} from "../../../../config.ts";
 
-// const API_URL = import.meta.env.VITE_API_URL + '/user/users';
-const API_URL = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api' +  '/user/users'; // Staging API URL
+const API_URL = API + '/user/users';
+// const API_URL = API +  '/user/users'; // Staging API URL
 
 class UsersRepository implements UsersRepositoryInterface {
 

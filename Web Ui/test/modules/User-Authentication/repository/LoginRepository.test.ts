@@ -1,7 +1,12 @@
 import axios from "axios";
 import AuthRepository from "../../../../src/modules/User-Authentication/repository/LoginRepository";
 import { dbUserMock } from "../../__mocks__/Auth/userOnDbMock";
+import dotenv from 'dotenv';
+dotenv.config()
 
+jest.mock('../../../../config.ts', () => ({
+  API: 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api', // Valor mockeado
+}));
 
 const API_URL = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api';
 
