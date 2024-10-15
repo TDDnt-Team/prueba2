@@ -38,6 +38,15 @@ permissions:
   pull-requests: read # allows SonarCloud to decorate PRs with analysis results
 
 jobs:
+  create-env-file:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Set Environment Variables
+        run: |
+          echo "API_URL=${{ secrets.API_URL }}" >> ./Web Ui/.env
+          echo "VITE_API_URL=${{ secrets.API_URL }}" >> ./Web Ui/.env
+
   # Add a job for running Jest tests
   jest-tests-frontend: #OK
     runs-on: ubuntu-latest
