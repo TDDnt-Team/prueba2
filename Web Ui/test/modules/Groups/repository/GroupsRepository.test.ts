@@ -1,6 +1,8 @@
 import axios from 'axios';
 import GroupsRepository from '../../../../src/modules/Groups/repository/GroupsRepository';
 import { GroupDataObject } from '../../../../src/modules/Groups/domain/GroupInterface';
+import dotenv from 'dotenv'
+dotenv.config()
 
 const axiosGetSpy = jest.spyOn(axios, 'get');
 const axiosPostSpy = jest.spyOn(axios, 'post');
@@ -10,7 +12,7 @@ jest.mock('../../../../config.ts', () => ({
   API: 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api', // Valor mockeado
 }));
 
-const API_URL = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api' + '/groups';
+const API_URL = process.env.API_URL + '/groups';
 
 const repository = new GroupsRepository();
 

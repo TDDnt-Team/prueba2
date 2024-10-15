@@ -15,7 +15,7 @@ jest.mock('../../../../config.ts', () => ({
 
 const mockRepository = new AssignmentsRepository();
 
-const API_URL = process.env.VITE_API_URL + '/assignments';
+const API_URL = process.env.API_URL + '/assignments';
 
 describe('Get assignments', () => {
     it('should fetch assignments successfully', async () => {

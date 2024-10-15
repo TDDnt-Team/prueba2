@@ -8,7 +8,7 @@ jest.mock('../../../../config.ts', () => ({
   API: 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api', // Valor mockeado
 }));
 
-const API_URL = 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api';
+const API_URL = process.env.API_URL;
 
 // Mocking Axios to avoid actual HTTP requests
 jest.mock("axios");

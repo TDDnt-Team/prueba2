@@ -11,7 +11,7 @@ jest.mock('../../../../config.ts', () => ({
   API: 'https://server-j5eecmodv-dilan-alavis-projects.vercel.app/api', // Valor mockeado
 }));
 
-const API_URL = process.env.VITE_API_URL + '/user/users';
+const API_URL = process.env.API_URL + '/user/users';
 
 const repository = new UsersRepository();
 
