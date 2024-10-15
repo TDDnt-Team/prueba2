@@ -136,7 +136,7 @@ jobs:
        with:
          scanMetadataReportFile: .scannerwork/report-task.
 
-       continue-on-error: true  # Esta opción permite que el workflow siga ejecutándose aunque falle la Quality Gate
+       #continue-on-error: true  # Esta opción permite que el workflow siga ejecutándose aunque falle la Quality Gate
 
      - name: "SonarQube Quality Gate Status value"
        run: |
