@@ -1,5 +1,6 @@
 import { UserOnDb } from "../domain/userOnDb.interface";
 import AuthRepository from "../repository/LoginRepository";
+import {VITE_API} from "../../../../config.ts";
 
 export class CheckIfUserHasAccount {
   adapter: AuthRepository;
@@ -8,6 +9,7 @@ export class CheckIfUserHasAccount {
   }
 
   async userHasAnAccount(email: string) {
+    console.log("API= " + VITE_API)
     try {
       const answerData: UserOnDb = await this.adapter.getAccountInfo(email);
       console.log('User data retrieved:', answerData);
