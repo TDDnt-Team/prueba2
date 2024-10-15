@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+/* eslint-disable */
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -9,5 +10,5 @@ const firebaseConfig = {
 };
 
 const firebase: any = initializeApp(firebaseConfig);
-
+/* eslint-enable */
 export default firebase;
