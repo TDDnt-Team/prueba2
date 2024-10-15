@@ -16,7 +16,7 @@ export class CheckIfUserHasAccount {
         console.log('User has a group ID:', answerData.groupid);
         return answerData;
       } else {
-        console.log('User does not have a group ID.');
+        console.log('User does not have a group ID.', answerData);
         return null;
       }
     } catch (error) {
