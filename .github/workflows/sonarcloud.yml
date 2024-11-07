@@ -306,18 +306,18 @@ jobs:
           echo "PGPASSWORD=${{ secrets.PGPASSWORD }}" >> ./server/.env
           echo "PGPORT=${{ secrets.PGPORT }}" >> ./server/.env
           echo "REACT_APP_AUTH_TOKEN=${{ secrets.REACT_APP_AUTH_TOKEN }}" >> ./server/.env
-      - name: Setup Vercel Project
-        run: |
-          cd ./server
-          rm -rf .vercel
-          mkdir -p .vercel
-          echo "{\"orgId\": \"${{ secrets.VERCEL_ORG_ID }}\", \"projectId\": \"${{ secrets.VERCEL_PROJECT_ID }}\"}" > .vercel/project.json
-          echo "{\"version\": 2}" > vercel.json
+      - name: Install Vercel CLI
+        run: npm install -g vercel
 
-      - name: Deploy to Vercel Production
+      - name: Link to Staging Project
         run: |
           cd ./server
-          vercel deploy --name tdd-lab-api-staging --prod --token ${{ secrets.VERCEL_TOKEN }} --yes
+          vercel link --yes --project tdd-lab-api-staging --token ${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy to Staging
+        run: |
+          cd ./server
+          vercel deploy --prod --token ${{ secrets.VERCEL_TOKEN }} -y
 
   deploy_vercel_production:
     runs-on: ubuntu-latest
@@ -352,15 +352,15 @@ jobs:
           echo "PGPASSWORD=${{ secrets.PGPASSWORD }}" >> ./server/.env
           echo "PGPORT=${{ secrets.PGPORT }}" >> ./server/.env
           echo "REACT_APP_AUTH_TOKEN=${{ secrets.REACT_APP_AUTH_TOKEN }}" >> ./server/.env
-      - name: Setup Vercel Project
-        run: |
-          cd ./server
-          rm -rf .vercel
-          mkdir -p .vercel
-          echo "{\"orgId\": \"${{ secrets.VERCEL_ORG_ID }}\", \"projectId\": \"${{ secrets.VERCEL_PROJECT_ID }}\"}" > .vercel/project.json
-          echo "{\"version\": 2}" > vercel.json
+      - name: Install Vercel CLI
+        run: npm install -g vercel
 
-      - name: Deploy to Vercel Production
+      - name: Link to Production Project
         run: |
           cd ./server
-          vercel deploy --name tdd-lab-api --prod --token ${{ secrets.VERCEL_TOKEN }} --yes
+          vercel link --yes --project tdd-lab-gold-api --token ${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy to Production
+        run: |
+          cd ./server
+          vercel deploy --prod --token ${{ secrets.VERCEL_TOKEN }} -y
