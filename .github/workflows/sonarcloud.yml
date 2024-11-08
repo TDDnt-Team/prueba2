@@ -358,7 +358,7 @@ jobs:
       - name: Link to Production Project
         run: |
           cd ./server
-          vercel link --yes --project tdd-lab-gold-api --token ${{ secrets.VERCEL_TOKEN }}
+          vercel link --yes --project tdd-lab-api --token ${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy to Production
         run: |
