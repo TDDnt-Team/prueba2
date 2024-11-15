@@ -177,62 +177,60 @@ jobs:
             echo "No changes to commit in TypeScript files."
             exit 0
           fi
-  deploy_firebase_staging:
-    runs-on: ubuntu-latest
-    environment:
-      name: staging
-    needs: prettier
-    #Ejecutar solo si es la rama staging #
-    if: github.event.ref == 'refs/heads/main'
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-
-      - name: Set Environment Variables
-        working-directory: Web Ui
-        run: |
-          echo "VITE_FIREBASE_API_KEY=${{ secrets.VITE_FIREBASE_API_KEY }}" > ./.env
-          echo "VITE_FIREBASE_AUTH_DOMAIN=${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}" >> ./.env
-          echo "VITE_FIREBASE_PROJECT_ID=${{ secrets.VITE_FIREBASE_PROJECT_ID }}" >> ./.env
-          echo "VITE_FIREBASE_STORAGE_BUCKET=${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}" >> ./.env
-          echo "VITE_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}" >> ./.env
-          echo "VITE_FIREBASE_APP_ID=${{ secrets.VITE_FIREBASE_APP_ID }}" >> ./.env
-          echo "VITE_API_URL=${{ secrets.API_URL }}" >> ./.env
-
-      - name: Install Dependencies
-        working-directory: Web Ui
-        run: npm install
-
-      - name: Npm ci
-        working-directory: Web Ui
-        run: npm ci
-
-      - name: Install Firebase CLI
-        run: npm install -g firebase-tools
-
-      - name: Enable webframeworks
-        run: firebase experiments:enable webframeworks
-
-      - name: Npm run build
-        working-directory: Web Ui
-        run: npm run build
-
-      - name: Deploy to Firebase Staging
-        working-directory: Web Ui
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
-        run: |
-          firebase deploy --project ${{ secrets.FIREBASE_PROJECT_ID }}
+# deploy_firebase_staging:
+  #   runs-on: ubuntu-latest
+  #   environment:
+  #     name: staging
+  #   needs: prettier
+  #   if: github.event.ref == 'refs/heads/main'
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Setup Node
+  #       uses: actions/setup-node@v4
+  #
+  #     - name: Set Environment Variables
+  #       working-directory: Web Ui
+  #       run: |
+  #         echo "VITE_FIREBASE_API_KEY=${{ secrets.VITE_FIREBASE_API_KEY }}" > ./.env
+  #         echo "VITE_FIREBASE_AUTH_DOMAIN=${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}" >> ./.env
+  #         echo "VITE_FIREBASE_PROJECT_ID=${{ secrets.VITE_FIREBASE_PROJECT_ID }}" >> ./.env
+  #         echo "VITE_FIREBASE_STORAGE_BUCKET=${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}" >> ./.env
+  #         echo "VITE_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}" >> ./.env
+  #         echo "VITE_FIREBASE_APP_ID=${{ secrets.VITE_FIREBASE_APP_ID }}" >> ./.env
+  #         echo "VITE_API_URL=${{ secrets.API_URL }}" >> ./.env
+  #
+  #     - name: Install Dependencies
+  #       working-directory: Web Ui
+  #       run: npm install
+  #
+  #     - name: Npm ci
+  #       working-directory: Web Ui
+  #       run: npm ci
+  #
+  #     - name: Install Firebase CLI
+  #       run: npm install -g firebase-tools
+  #
+  #     - name: Enable webframeworks
+  #       run: firebase experiments:enable webframeworks
+  #
+  #     - name: Npm run build
+  #       working-directory: Web Ui
+  #       run: npm run build
+  #
+  #     - name: Deploy to Firebase Staging
+  #       working-directory: Web Ui
+  #       env:
+  #         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  #         FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+  #       run: |
+  #         firebase deploy --project ${{ secrets.FIREBASE_PROJECT_ID }}
   deploy_firebase_production:
     runs-on: ubuntu-latest
     environment:
       name: production
-    needs: [deploy_firebase_staging]
+    needs: prettier
     #Ejecutar solo si es la rama main
     # if: github.event.ref == 'refs/heads/main'
 
@@ -279,51 +277,50 @@ jobs:
           FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
         run: |
           firebase deploy --project ${{ secrets.FIREBASE_PROJECT_ID }}
-  deploy_vercel_staging:
-    runs-on: ubuntu-latest
-    environment:
-      name: staging
-    needs: prettier
-    #Ejecutar solo si es la rama staging
-    if: github.event.ref == 'refs/heads/main'
-    steps:
-      - name: "Echo values"
-        run: |
-          echo $VERCEL_PROJECT_ID
-          echo $VERCEL_ORG_ID 
-          echo $VERCEL_TOKEN
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-
-      - name: Set Environment Variables
-        run: |
-          echo "PGHOST=${{ secrets.PGHOST }}" >> ./server/.env
-          echo "PGDATABASE=${{ secrets.PGDATABASE }}" >> ./server/.env
-          echo "PGUSER=${{ secrets.PGUSER }}" >> ./server/.env
-          echo "PGPASSWORD=${{ secrets.PGPASSWORD }}" >> ./server/.env
-          echo "PGPORT=${{ secrets.PGPORT }}" >> ./server/.env
-          echo "REACT_APP_AUTH_TOKEN=${{ secrets.REACT_APP_AUTH_TOKEN }}" >> ./server/.env
-      - name: Install Vercel CLI
-        run: npm install -g vercel
-
-      - name: Link to Staging Project
-        run: |
-          cd ./server
-          vercel link --yes --project tdd-lab-api-staging --token ${{ secrets.VERCEL_TOKEN }}
-
-      - name: Deploy to Staging
-        run: |
-          cd ./server
-          vercel deploy --prod --token ${{ secrets.VERCEL_TOKEN }} -y
+  # deploy_vercel_staging:
+  #   runs-on: ubuntu-latest
+  #   environment:
+  #     name: staging
+  #   needs: prettier
+  #   if: github.event.ref == 'refs/heads/main'
+  #   steps:
+  #     - name: "Echo values"
+  #       run: |
+  #         echo $VERCEL_PROJECT_ID
+  #         echo $VERCEL_ORG_ID 
+  #         echo $VERCEL_TOKEN
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Setup Node
+  #       uses: actions/setup-node@v4
+  #
+  #     - name: Set Environment Variables
+  #       run: |
+  #         echo "PGHOST=${{ secrets.PGHOST }}" >> ./server/.env
+  #         echo "PGDATABASE=${{ secrets.PGDATABASE }}" >> ./server/.env
+  #         echo "PGUSER=${{ secrets.PGUSER }}" >> ./server/.env
+  #         echo "PGPASSWORD=${{ secrets.PGPASSWORD }}" >> ./server/.env
+  #         echo "PGPORT=${{ secrets.PGPORT }}" >> ./server/.env
+  #         echo "REACT_APP_AUTH_TOKEN=${{ secrets.REACT_APP_AUTH_TOKEN }}" >> ./server/.env
+  #     - name: Install Vercel CLI
+  #       run: npm install -g vercel
+  #
+  #     - name: Link to Staging Project
+  #       run: |
+  #         cd ./server
+  #         vercel link --yes --project tdd-lab-api-staging --token ${{ secrets.VERCEL_TOKEN }}
+  #
+  #     - name: Deploy to Staging
+  #       run: |
+  #         cd ./server
+  #         vercel deploy --prod --token ${{ secrets.VERCEL_TOKEN }} -y
 
   deploy_vercel_production:
     runs-on: ubuntu-latest
     environment:
       name: production
-    needs: [deploy_vercel_staging]
+    needs: prettier
     #Ejecutar solo si es la rama main
 
     #   env:
@@ -358,7 +355,7 @@ jobs:
       - name: Link to Production Project
         run: |
           cd ./server
-          vercel link --yes --project tdd-lab-api --token ${{ secrets.VERCEL_TOKEN }}
+          vercel link --yes --project server --token ${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy to Production
         run: |
