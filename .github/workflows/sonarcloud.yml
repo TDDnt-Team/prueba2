@@ -39,7 +39,7 @@ permissions:
 
 jobs:
   # Add a job for running Jest tests
-  jest-tests-frontend: #OK
+  jest-tests-frontend:
     runs-on: ubuntu-latest
     environment: staging
     steps:
@@ -59,7 +59,7 @@ jobs:
         working-directory: Web Ui
         run: npm test
 
-  jest-tests-backend: #OK
+  jest-tests-backend:
     runs-on: ubuntu-latest
     environment: staging
     steps:
